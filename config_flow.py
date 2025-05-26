@@ -8,11 +8,10 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import selector
-from homeassistant.helpers.typing import ConfigType
 
 from .const import DOMAIN
 
-
+'''
 def inverter_schema(existing_names: set[str] | None = None) -> vol.Schema:
     """Return the schema for adding or editing an inverter."""
     return vol.Schema(
@@ -37,6 +36,19 @@ def inverter_schema(existing_names: set[str] | None = None) -> vol.Schema:
             ): selector.NumberSelector(
                 selector.NumberSelectorConfig(min=0, max=1, step=0.01, mode="box")
             ),
+        }
+    )
+'''
+
+
+def inverter_schema(existing_names: set[str] | None = None) -> vol.Schema:
+    """TEMP: Use only basic types for testing."""
+    return vol.Schema(
+        {
+            vol.Required("name"): str,
+            vol.Required("size_w"): int,
+            vol.Optional("max_ac_w"): int,
+            vol.Optional("inverter_eff", default=0.98): float,
         }
     )
 

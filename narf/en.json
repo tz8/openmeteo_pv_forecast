@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Inverter",
+        "description": "Configure your inverter.",
+        "data": {
+          "name": "Name",
+          "size_w": "Size (W)",
+          "max_ac_w": "Max AC (W)",
+          "inverter_eff": "Efficiency"
+        }
+      },
+      "inverters_menu": {
+        "title": "More Inverters?",
+        "data": {
+          "menu_option": "Add another inverter or continue?"
+        }
+      },
+      "strings_add": {
+        "title": "Add PV String",
+        "description": "Configure your PV string.",
+        "data": {
+          "azimuth": "Azimuth",
+          "tilt": "Tilt",
+          "power_w": "Power (Wp)",
+          "albedo": "Albedo",
+          "cell_coeff": "Cell Coeff"
+        }
+      },
+      "strings_menu": {
+        "title": "More Strings?",
+        "data": {
+          "menu_option": "Add another string or finish?"
+        }
+      }
+    },
+    "error": {
+      "name_exists": "Name already used"
+    }
+  }
+}
