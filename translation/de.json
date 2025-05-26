@@ -1,0 +1,97 @@
+{
+  "abort": {},
+  "error": {
+    "name_exists": "Ein Wechselrichter mit diesem Namen existiert bereits."
+  },
+  "config": {
+    "step": {
+      "inverters_add": {
+        "title": "Wechselrichter hinzufügen",
+        "description": "Konfigurieren Sie Ihre Solar-Wechselrichter-Einstellungen.",
+        "data": {
+          "name": "Wechselrichter-Name",
+          "size_w": "DC-Nennleistung (W)",
+          "max_ac_w": "Max. AC-Ausgang (W)",
+          "inverter_eff": "Wechselrichter-Wirkungsgrad"
+        }
+      },
+      "inverters_menu": {
+        "title": "Wechselrichter-Konfiguration",
+        "description": "Fügen Sie einen weiteren Wechselrichter hinzu oder fahren Sie mit den Panel-Strings fort.",
+        "menu_options": {
+          "add_another": "Weiteren Wechselrichter hinzufügen",
+          "done": "Weiter zu Panel-Strings"
+        }
+      },
+      "strings_add": {
+        "title": "Panel-String hinzufügen",
+        "description": "Konfigurieren Sie die Ausrichtung und Spezifikationen Ihres Solar-Panel-Strings.",
+        "data": {
+          "azimuth": "Azimut (Grad)",
+          "tilt": "Neigungswinkel (Grad)",
+          "power_w": "String-Leistung (W)",
+          "albedo": "Bodenreflexion (Albedo)",
+          "cell_coeff": "Temperaturkoeffizient (%/°C)"
+        }
+      },
+      "strings_menu": {
+        "title": "Panel-String-Konfiguration",
+        "description": "Fügen Sie einen weiteren Panel-String hinzu oder beenden Sie die Einrichtung.",
+        "menu_options": {
+          "add_another": "Weiteren String hinzufügen",
+          "done": "Einrichtung abschließen"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "PV-Prognose konfigurieren",
+        "description": "Bearbeiten Sie Ihre Solar-System-Konfiguration.",
+        "menu_options": {
+          "edit_inverters": "Wechselrichter bearbeiten",
+          "edit_strings": "Panel-Strings bearbeiten",
+          "done": "Änderungen speichern"
+        }
+      },
+      "inverters_edit": {
+        "title": "Wechselrichter verwalten",
+        "description": "Fügen Sie Wechselrichter hinzu, bearbeiten oder entfernen Sie sie aus Ihrem System.",
+        "menu_options": {
+          "add_inverter": "Neuen Wechselrichter hinzufügen",
+          "back": "Zurück zum Hauptmenü"
+        }
+      },
+      "inverters_add": {
+        "title": "Wechselrichter hinzufügen",
+        "description": "Konfigurieren Sie einen neuen Solar-Wechselrichter.",
+        "data": {
+          "name": "Wechselrichter-Name",
+          "size_w": "DC-Nennleistung (W)",
+          "max_ac_w": "Max. AC-Ausgang (W)",
+          "inverter_eff": "Wechselrichter-Wirkungsgrad"
+        }
+      },
+      "strings_edit": {
+        "title": "Panel-Strings verwalten",
+        "description": "Fügen Sie Panel-Strings hinzu, bearbeiten oder entfernen Sie sie aus Ihrem System.",
+        "menu_options": {
+          "add_string": "Neuen String hinzufügen",
+          "back": "Zurück zum Hauptmenü"
+        }
+      },
+      "strings_add": {
+        "title": "Panel-String hinzufügen",
+        "description": "Konfigurieren Sie einen neuen Solar-Panel-String.",
+        "data": {
+          "azimuth": "Azimut (Grad)",
+          "tilt": "Neigungswinkel (Grad)",
+          "power_w": "String-Leistung (W)",
+          "albedo": "Bodenreflexion (Albedo)",
+          "cell_coeff": "Temperaturkoeffizient (%/°C)"
+        }
+      }
+    }
+  }
+}

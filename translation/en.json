@@ -2,5 +2,96 @@
   "abort": {},
   "error": {
     "name_exists": "An inverter with this name already exists."
+  },
+  "config": {
+    "step": {
+      "inverters_add": {
+        "title": "Add Inverter",
+        "description": "Configure your solar inverter settings.",
+        "data": {
+          "name": "Inverter Name",
+          "size_w": "DC Power Rating (W)",
+          "max_ac_w": "Max AC Output (W)",
+          "inverter_eff": "Inverter Efficiency"
+        }
+      },
+      "inverters_menu": {
+        "title": "Inverter Configuration",
+        "description": "Add another inverter or continue to panel strings.",
+        "menu_options": {
+          "add_another": "Add Another Inverter",
+          "done": "Continue to Panel Strings"
+        }
+      },
+      "strings_add": {
+        "title": "Add Panel String",
+        "description": "Configure your solar panel string orientation and specifications.",
+        "data": {
+          "azimuth": "Azimuth (degrees)",
+          "tilt": "Tilt Angle (degrees)",
+          "power_w": "String Power (W)",
+          "albedo": "Ground Reflectance (Albedo)",
+          "cell_coeff": "Temperature Coefficient (%/°C)"
+        }
+      },
+      "strings_menu": {
+        "title": "Panel String Configuration",
+        "description": "Add another panel string or finish setup.",
+        "menu_options": {
+          "add_another": "Add Another String",
+          "done": "Finish Setup"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure PV Forecast",
+        "description": "Edit your solar system configuration.",
+        "menu_options": {
+          "edit_inverters": "Edit Inverters",
+          "edit_strings": "Edit Panel Strings",
+          "done": "Save Changes"
+        }
+      },
+      "inverters_edit": {
+        "title": "Manage Inverters",
+        "description": "Add, edit, or remove inverters from your system.",
+        "menu_options": {
+          "add_inverter": "Add New Inverter",
+          "back": "Back to Main Menu"
+        }
+      },
+      "inverters_add": {
+        "title": "Add Inverter",
+        "description": "Configure a new solar inverter.",
+        "data": {
+          "name": "Inverter Name",
+          "size_w": "DC Power Rating (W)",
+          "max_ac_w": "Max AC Output (W)",
+          "inverter_eff": "Inverter Efficiency"
+        }
+      },
+      "strings_edit": {
+        "title": "Manage Panel Strings",
+        "description": "Add, edit, or remove panel strings from your system.",
+        "menu_options": {
+          "add_string": "Add New String",
+          "back": "Back to Main Menu"
+        }
+      },
+      "strings_add": {
+        "title": "Add Panel String",
+        "description": "Configure a new solar panel string.",
+        "data": {
+          "azimuth": "Azimuth (degrees)",
+          "tilt": "Tilt Angle (degrees)",
+          "power_w": "String Power (W)",
+          "albedo": "Ground Reflectance (Albedo)",
+          "cell_coeff": "Temperature Coefficient (%/°C)"
+        }
+      }
+    }
   }
 }

@@ -1,3 +1,7 @@
+"""Config flow for Open-Meteo PV Forecast integration."""
+
+from __future__ import annotations
+
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
@@ -6,7 +10,8 @@ from homeassistant.helpers import config_validation as cv
 DOMAIN = "openmeteo_pv_forecast"
 
 
-def inverter_schema(existing_names=None):
+def inverter_schema(existing_names: set[str] | None = None) -> vol.Schema:
+    """Return schema for inverter configuration."""
     existing_names = existing_names or set()
     return vol.Schema(
         {
@@ -20,7 +25,8 @@ def inverter_schema(existing_names=None):
     )
 
 
-def string_schema():
+def string_schema() -> vol.Schema:
+    """Return schema for string configuration."""
     return vol.Schema(
         {
             vol.Required("azimuth"): vol.All(
@@ -37,25 +43,31 @@ def string_schema():
 
 
 class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for Open-Meteo PV Forecast."""
+
     VERSION = 1
 
-    def __init__(self):
-        self._data = {}
-        self._inverters = []
-        self._strings = []
+    def __init__(self) -> None:
+        """Initialize the config flow."""
+        self._data: dict[str, any] = {}
+        self._inverters: list[dict[str, any]] = []
+        self._strings: list[dict[str, any]] = []
 
-    async def async_step_user(self, user_input=None):
-        """First step: ask for home."""
-        if user_input is None:
-            return self.async_show_form(
-                step_id="user",
-                data_schema=vol.Schema({vol.Required("home"): str}),
-            )
-        self._data["home"] = user_input["home"]
+    async def async_step_user(
+        self, user_input: dict[str, any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle the initial step - use default HA location."""
+        # Use Home Assistant's default location
+        self._data["latitude"] = self.hass.config.latitude
+        self._data["longitude"] = self.hass.config.longitude
+        self._data["location_name"] = self.hass.config.location_name or "Home"
+
         return await self.async_step_inverters_add()
 
-    async def async_step_inverters_add(self, user_input=None):
-        """Step to add an inverter."""
+    async def async_step_inverters_add(
+        self, user_input: dict[str, any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle adding an inverter."""
         if user_input is not None:
             # Check for unique name
             new_name = user_input["name"]
@@ -77,8 +89,10 @@ class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=inverter_schema(),
         )
 
-    async def async_step_inverters_menu(self, user_input=None):
-        """Menu after adding inverter: add more or go to strings."""
+    async def async_step_inverters_menu(
+        self, user_input: dict[str, any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle menu after adding inverter."""
         if user_input is None:
             return self.async_show_menu(
                 step_id="inverters_menu",
@@ -89,8 +103,10 @@ class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         elif user_input == {"menu_option": "done"}:
             return await self.async_step_strings_add()
 
-    async def async_step_strings_add(self, user_input=None):
-        """Step to add a string."""
+    async def async_step_strings_add(
+        self, user_input: dict[str, any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle adding a string."""
         if user_input is not None:
             self._strings.append(user_input)
             # Ask user: add another string or finish?
@@ -103,8 +119,10 @@ class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=string_schema(),
         )
 
-    async def async_step_strings_menu(self, user_input=None):
-        """Menu after adding string: add more or finish."""
+    async def async_step_strings_menu(
+        self, user_input: dict[str, any] | None = None
+    ) -> config_entries.FlowResult:
+        """Handle menu after adding string."""
         if user_input is None:
             return self.async_show_menu(
                 step_id="strings_menu",
@@ -117,12 +135,16 @@ class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             self._data["inverters"] = self._inverters
             self._data["strings"] = self._strings
             return self.async_create_entry(
-                title="Open-Meteo PV Forecast", data=self._data
+                title=f"PV Forecast - {self._data['location_name']}",
+                data=self._data,
             )
 
     @staticmethod
     @callback
-    def async_get_options_flow(config_entry):
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> OpenMeteoPVForecastOptionsFlowHandler:
+        """Get the options flow for this handler."""
         from .options_flow import OpenMeteoPVForecastOptionsFlowHandler
 
         return OpenMeteoPVForecastOptionsFlowHandler(config_entry)
