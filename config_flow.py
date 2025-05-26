@@ -6,38 +6,70 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers import selector
 
 DOMAIN = "openmeteo_pv_forecast"
 
 
-def inverter_schema(existing_names: set[str] | None = None) -> vol.Schema:
-    """Return schema for inverter configuration."""
-    existing_names = existing_names or set()
+def inverter_schema(existing_names=None) -> vol.Schema:
+    """Return the inverter input schema with translated field labels."""
     return vol.Schema(
         {
-            vol.Required("name"): str,
-            vol.Required("size_w"): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            vol.Optional("max_ac_w"): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            vol.Optional("inverter_eff", default=0.98): vol.All(
-                vol.Coerce(float), vol.Range(min=0, max=1)
+            vol.Required(
+                "name",
+                description={"translation_key": "name"},
+            ): selector.TextSelector(selector.TextSelectorConfig(type="text")),
+            vol.Required(
+                "size_w", description={"translation_key": "size_w"}, default=15000
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(min=1, step=100, unit_of_measurement="W")
+            ),
+            vol.Optional(
+                "max_ac_w", description={"translation_key": "max_ac_w"}, default=10300
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(min=1, step=100, unit_of_measurement="W")
+            ),
+            vol.Optional(
+                "inverter_eff",
+                description={"translation_key": "inverter_eff"},
+                default=0.98,
+            ): selector.NumberSelector(
+                selector.NumberSelectorConfig(min=0, max=1, step=0.01, mode="box")
             ),
         }
     )
 
 
-def string_schema() -> vol.Schema:
+def string_schema():
     """Return schema for string configuration."""
     return vol.Schema(
         {
-            vol.Required("azimuth"): vol.All(
-                vol.Coerce(int), vol.Range(min=-179, max=180)
+            vol.Required("azimuth"): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=-179, max=180, step=1, unit_of_measurement="°"
+                ),
+                translation_key="azimuth",
             ),
-            vol.Required("tilt", default=30): vol.All(
-                vol.Coerce(int), vol.Range(min=0, max=90)
+            vol.Required("tilt", default=30): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=0, max=90, step=1, unit_of_measurement="°"
+                ),
+                translation_key="tilt",
             ),
-            vol.Required("power_w"): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            vol.Optional("albedo", default=0.2): vol.Coerce(float),
-            vol.Optional("cell_coeff", default=0.0328): vol.Coerce(float),
+            vol.Required("power_w"): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=1, step=100, unit_of_measurement="Wp"
+                ),
+                translation_key="power_w",
+            ),
+            vol.Optional("albedo", default=0.2): selector.NumberSelector(
+                selector.NumberSelectorConfig(min=0, max=1, step=0.01, mode="box"),
+                translation_key="albedo",
+            ),
+            vol.Optional("cell_coeff", default=0.0328): selector.NumberSelector(
+                selector.NumberSelectorConfig(min=0, step=0.001, mode="box"),
+                translation_key="cell_coeff",
+            ),
         }
     )
 
@@ -75,7 +107,8 @@ class OpenMeteoPVForecastConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_show_form(
                     step_id="inverters_add",
                     data_schema=inverter_schema(),
-                    errors={"name": "name_exists"},
+                    errors={"name": "name_exists"} if duplicate else {},
+                    description_placeholders={},
                 )
             self._inverters.append(user_input)
             # Ask user: add another inverter or continue?
