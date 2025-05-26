@@ -1,0 +1,6 @@
+{
+  "abort": {},
+  "error": {
+    "name_exists": "An inverter with this name already exists."
+  }
+}

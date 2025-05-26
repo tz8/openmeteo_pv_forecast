@@ -1,0 +1,12 @@
+{
+  "domain": "openmeteo_pv_forecast",
+  "name": "Open-Meteo PV Forecast",
+  "version": "1.0.0",
+  "config_flow": true,
+  "config_entries": true,
+  "documentation": "https://github.com/tz8/openmeteo_pv_forecast",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@tz8"],
+  "iot_class": "local_polling"
+}
