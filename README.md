@@ -5,11 +5,8 @@
 ## 🇩🇪 Übersicht
 
 **Open-Meteo PV Forecast** ist eine Home Assistant Integration, die lokale Solarstrom-Vorhersagen (Photovoltaik) direkt auf Basis der aktuellen Wetterdaten von Open-Meteo berechnet.
-Die Open-Meteo Ensemble-API nutzt dabei verschiedene Modellläufe mit leicht unterschiedlichen Ausgangsbedingungen, um eine robuste und probabilistische Wetterprognose zu ermöglichen. So erhältst du nicht nur den wahrscheinlichsten Wert, sondern auch eine Einschätzung des bestmöglichen und des minimal zu erwartenden Solarertrags (Median, Minimum, Maximum).
 
-Das Ziel: Die Prognosewerte werden für jeden String, aggregiert pro Wechselrichter und schließlich für das gesamte Haus als Sensoren in Home Assistant bereitgestellt – zur flexiblen Weiterverwendung in Automationen, Visualisierungen und Energie-Management.
-
-- **umfassende Prognosewerte:*** die Prognose liefert ein Ertragsfenster mit einem wahrscheinlichen Ertrag 
+- **Umfassende Prognosewerte:** Die Open-Meteo Ensemble-API nutzt verschiedene Modellläufe mit leicht unterschiedlichen Ausgangsbedingungen für eine robuste und probabilistische Wetterprognose. So erhältst du nicht nur den wahrscheinlichsten Wert (Median), sondern auch eine Einschätzung des bestmöglichen und des minimal zu erwartenden Solarertrags (Maximum/Minimum). Die Prognosewerte werden für jeden String, aggregiert pro Wechselrichter und für das gesamte System als Sensoren bereitgestellt.
 - **Keine Cloud-PV-Dienste:** Die Prognose läuft lokal und nutzt ausschließlich öffentliche Wetterdaten von Open-Meteo (keine anderen Drittanbieter!).
 - **Kein Account nötig:** Die Open-Meteo-API ist ohne Anmeldung sofort nutzbar.
 - **Großzügiges Freikontingent:** Das freie Kontingent reicht für die stündlichen Abrufe der Vorhersagedaten problemlos aus.
@@ -50,8 +47,9 @@ Das Ziel: Die Prognosewerte werden für jeden String, aggregiert pro Wechselrich
 
 ## 🇬🇧 Overview
 
-**Open-Meteo PV Forecast** is a Home Assistant integration that calculates your photovoltaic power forecast locally, using up-to-date weather data from [Open-Meteo](https://open-meteo.com/).
+**Open-Meteo PV Forecast** is a Home Assistant integration that calculates your photovoltaic power forecast locally, using up-to-date weather data from Open-Meteo.
 
+- **Comprehensive forecasting:** The Open-Meteo Ensemble API uses multiple model runs with slightly different initial conditions for robust probabilistic weather forecasting. This provides not just the most likely yield (median), but also estimates for best and worst-case scenarios (maximum/minimum). Forecast values are available as sensors for each string, aggregated per inverter, and for your entire system.
 - **No cloud-based PV providers:** The forecast runs 100% locally and uses only public weather data from Open-Meteo (no other third parties!).
 - **No account required:** The Open-Meteo API is open for use, with no registration needed.
 - **Generous free quota:** The free tier easily covers the number of API calls needed for regular forecasts.
