@@ -1,34 +1,46 @@
-"""Init file for Open-Meteo PV Forecast integration."""
+"""Integration for Open-Meteo PV Forecast."""
 
 from __future__ import annotations
+
+from typing import Any
+
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from .const import DOMAIN
-from .config_flow import OpenMeteoPVForecastOptionsFlowHandler
 
-PLATFORMS = ["sensor"]
+from .const import (
+    CONF_HORIZON,
+    CONF_WEATHER_MODEL,
+    DEFAULT_HORIZON,
+    DEFAULT_WEATHER_MODEL,
+    DOMAIN,
+)
+
+PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
-async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Set up via YAML (not used)."""
+async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Migrate old entry."""
+    if entry.version == 1:
+        options = {
+            **entry.options,
+            CONF_HORIZON: DEFAULT_HORIZON,
+            CONF_WEATHER_MODEL: DEFAULT_WEATHER_MODEL,
+        }
+
+        hass.config_entries.async_update_entry(entry, options=options, version=2)
+
     return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Open-Meteo PV Forecast from a config entry."""
+    if entry.version < 2:
+        if not await async_migrate_entry(hass, entry):
+            return False
 
     hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][entry.entry_id] = entry.data
-
-    # Launch options flow if inverters empty
-    if not entry.options.get("inverters"):
-        hass.async_create_task(
-            hass.config_entries.flow.async_init(
-                DOMAIN,
-                context={"source": "options"},
-                data=entry.data,
-            )
-        )
+    hass.data[DOMAIN][entry.entry_id] = entry.options
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
@@ -37,9 +49,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    return True
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    if unload_ok:
+        hass.data[DOMAIN].pop(entry.entry_id)
 
-
-async def async_get_options_flow(entry: ConfigEntry):
-    """Return the options flow handler (for Configure button)."""
-    return OpenMeteoPVForecastOptionsFlowHandler(entry)
+    return unload_ok

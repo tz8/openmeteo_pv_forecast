@@ -1,0 +1,150 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Open-Meteo PV Forecast",
+        "description": "Set up your PV system configuration",
+        "menu_options": {
+          "add_inverter": "Add Inverter",
+          "add_string": "Add PV String",
+          "weather_model": "Select Weather Model",
+          "finish": "Finish Setup"
+        }
+      },
+      "add_inverter": {
+        "title": "Add Inverter",
+        "description": "Add a new inverter to your system",
+        "data": {
+          "name": "Inverter Name",
+          "size_w": "Nominal DC Power (W)",
+          "max_ac_w": "Maximum AC Power (W)",
+          "inverter_eff": "Inverter Efficiency"
+        }
+      },
+      "add_string": {
+        "title": "Add PV String",
+        "description": "Add a new PV string with horizon configuration",
+        "data": {
+          "string_name": "String Name (e.g., Roof South)",
+          "inverter": "Inverter",
+          "azimuth": "Azimuth (-179° to 180°, South = 0°)",
+          "tilt": "Tilt (0° to 90°)",
+          "power_w": "String Power (Wp)",
+          "albedo": "Ground Reflection (0-1)",
+          "cell_coeff": "Temperature Coefficient (%/K)",
+          "horizon_0": "North (0°-30°)",
+          "horizon_1": "North-Northeast (30°-60°)",
+          "horizon_2": "East-Northeast (60°-90°)",
+          "horizon_3": "East (90°-120°)",
+          "horizon_4": "East-Southeast (120°-150°)",
+          "horizon_5": "South-Southeast (150°-180°)",
+          "horizon_6": "South (180°-210°)",
+          "horizon_7": "South-Southwest (210°-240°)",
+          "horizon_8": "West-Southwest (240°-270°)",
+          "horizon_9": "West (270°-300°)",
+          "horizon_10": "West-Northwest (300°-330°)",
+          "horizon_11": "North-Northwest (330°-360°)"
+        }
+      },
+      "weather_model": {
+        "title": "Weather Model Selection",
+        "description": "Choose the weather model to use for forecasting. The resolution indicates the spatial resolution of the forecast.",
+        "data": {
+          "weather_model": "Weather Model"
+        }
+      }
+    },
+    "error": {
+      "name_exists": "This name already exists",
+      "cannot_delete_with_strings": "Cannot delete inverter while strings are still assigned to it"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Edit Configuration",
+        "menu_options": {
+          "edit_inverters": "Edit Inverters",
+          "edit_strings": "Edit Strings",
+          "edit_weather_model": "Edit Weather Model",
+          "edit_horizon": "Edit Horizon",
+          "done": "Done"
+        }
+      },
+      "edit_inverters": {
+        "title": "Edit Inverters",
+        "data": {
+          "action": "Action",
+          "inverter": "Select Inverter"
+        },
+        "data_description": {
+          "action": "Choose what to do with inverters"
+        }
+      },
+      "edit_strings": {
+        "title": "Edit PV Strings",
+        "data": {
+          "action": "Action",
+          "string": "Select String"
+        }
+      },
+      "edit_weather_model": {
+        "title": "Weather Model",
+        "description": "Select the weather model to use for your location. Higher resolution models provide more accurate forecasts but may not be available in all regions.",
+        "data": {
+          "weather_model": "Weather Model"
+        }
+      },
+      "edit_horizon": {
+        "title": "Edit Horizon",
+        "description": "Set horizon elevation for each 30° segment, starting at North (0°) and moving clockwise",
+        "data": {
+          "horizon_0": "12 o'clock (0°-30°)",
+          "horizon_1": "1 o'clock (30°-60°)",
+          "horizon_2": "2 o'clock (60°-90°)",
+          "horizon_3": "3 o'clock (90°-120°)",
+          "horizon_4": "4 o'clock (120°-150°)",
+          "horizon_5": "5 o'clock (150°-180°)",
+          "horizon_6": "6 o'clock (180°-210°)",
+          "horizon_7": "7 o'clock (210°-240°)",
+          "horizon_8": "8 o'clock (240°-270°)",
+          "horizon_9": "9 o'clock (270°-300°)",
+          "horizon_10": "10 o'clock (300°-330°)",
+          "horizon_11": "11 o'clock (330°-360°)"
+        }
+      },
+      "edit_inverter": {
+        "title": "Edit Inverter {name}",
+        "description": "Modify the inverter settings. The name cannot be changed.",
+        "data": {
+          "size_w": "Nominal DC Power (W)",
+          "max_ac_w": "Maximum AC Power (W)",
+          "inverter_eff": "Inverter Efficiency"
+        },
+        "data_description": {
+          "size_w": "Maximum DC power input capacity",
+          "max_ac_w": "Optional AC power output limit",
+          "inverter_eff": "Conversion efficiency (0.8-1.0)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "weather_model": {
+      "options": {
+        "icon_d2_eps": "ICON-D2-EPS (DWD) - Central Europe, 2 km - Updates every 3h",
+        "icon_eu_eps": "ICON-EU-EPS (DWD) - Europe, 13 km - Updates every 6h",
+        "icon_eps": "ICON-EPS (DWD) - Global, 26 km - Updates every 12h",
+        "mogreps_uk": "MOGREPS-UK (UK Met Office) - UK, 2 km - Updates hourly",
+        "mogreps_g": "MOGREPS-G (UK Met Office) - Global, 20 km - Updates every 6h"
+      }
+    },
+    "action": {
+      "options": {
+        "add": "Add Inverter",
+        "edit": "Edit Inverter",
+        "remove": "Remove Inverter"
+      }
+    }
+  }
+}

@@ -1,41 +1,38 @@
-"""Dummy solar forecast with Gaussian bell curve for Open-Meteo PV Forecast."""
+"""Solar forecast calculator for Open-Meteo PV Forecast."""
 
-from datetime import datetime, timedelta, timezone, time
+from __future__ import annotations
+
+from datetime import datetime, time, timedelta, timezone
+from typing import Any
 from zoneinfo import ZoneInfo
-import math
 
 
-def generate_forecast(config: dict) -> dict[datetime, float]:
-    """Return dummy forecast with bell curve for the next 48 hours."""
+def generate_forecast(config: dict[str, Any]) -> dict[datetime, float]:
+    """Generate solar forecast for the next 48 hours.
 
-    # Use the configured timezone or UTC fallback
-    tz_str = config.get("timezone", "UTC")
-    tz = ZoneInfo(tz_str)
+    Uses a Gaussian bell curve to simulate daily solar production.
+    """
+    tz = ZoneInfo(config.get("timezone", "UTC"))
 
-    # Fixed sunrise and sunset times for dummy example (local time)
-    sunrise_time = time(6, 0)
-    sunset_time = time(20, 0)
-    noon_time = time(13, 0)
+    # Fixed times for demonstration
+    sunrise = time(6, 0)
+    sunset = time(20, 0)
+    solar_noon = time(13, 0)
 
-    now_utc = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
-    forecast = {}
+    now = datetime.now(timezone.utc).replace(minute=0, second=0, microsecond=0)
 
-    # Gaussian bell parameters
-    peak_value = 10.0
-    sigma_hours = 3.0  # width of the bell curve in hours
+    forecast: dict[datetime, float] = {}
+    peak_power = 10.0
+    curve_width = 3.0
 
-    for hour_offset in range(48):
-        dt_utc = now_utc + timedelta(hours=hour_offset)
+    for hour in range(48):
+        dt_utc = now + timedelta(hours=hour)
         dt_local = dt_utc.astimezone(tz)
-        local_time = dt_local.time()
 
-        # Check if within daylight period
-        if sunrise_time <= local_time <= sunset_time:
-            # Calculate hours from noon
-            delta_hours = (dt_local.hour + dt_local.minute / 60) - noon_time.hour
-
-            # Gaussian formula: peak * exp(-0.5 * (x/sigma)^2)
-            value = peak_value * math.exp(-0.5 * (delta_hours / sigma_hours) ** 2)
+        if sunrise <= dt_local.time() <= sunset:
+            delta = (dt_local.hour + dt_local.minute / 60) - solar_noon.hour
+            value = peak_power * (1 - (delta / curve_width) ** 2)
+            value = max(0, value)
         else:
             value = 0.0
 

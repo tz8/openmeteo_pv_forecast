@@ -1,0 +1,175 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Open-Meteo PV Prognose",
+        "description": "Richten Sie Ihre PV-Anlage ein",
+        "menu_options": {
+          "add_inverter": "Wechselrichter hinzufügen",
+          "add_string": "PV-String hinzufügen",
+          "weather_model": "Wettermodell auswählen",
+          "finish": "Einrichtung abschließen"
+        }
+      },
+      "add_inverter": {
+        "title": "Wechselrichter hinzufügen",
+        "description": "Fügen Sie einen neuen Wechselrichter hinzu",
+        "data": {
+          "name": "Wechselrichter Name",
+          "size_w": "Nominale DC-Leistung (W)",
+          "max_ac_w": "Maximale AC-Leistung (W)",
+          "inverter_eff": "Wechselrichter-Wirkungsgrad"
+        }
+      },
+      "add_string": {
+        "title": "PV-String hinzufügen",
+        "description": "Fügen Sie einen neuen PV-String mit Horizontkonfiguration hinzu",
+        "data": {
+          "string_name": "String-Name (z.B. Dach Süd)",
+          "inverter": "Wechselrichter",
+          "azimuth": "Azimut (-179° bis 180°, Süd = 0°)",
+          "tilt": "Neigung (0° bis 90°)",
+          "power_w": "String-Leistung (Wp)",
+          "albedo": "Bodenreflexion (0-1)",
+          "cell_coeff": "Temperaturkoeffizient (%/K)",
+          "horizon_0": "Nord (0°-30°)",
+          "horizon_1": "Nord-Nordost (30°-60°)",
+          "horizon_2": "Ost-Nordost (60°-90°)",
+          "horizon_3": "Ost (90°-120°)",
+          "horizon_4": "Ost-Südost (120°-150°)",
+          "horizon_5": "Süd-Südost (150°-180°)",
+          "horizon_6": "Süd (180°-210°)",
+          "horizon_7": "Süd-Südwest (210°-240°)",
+          "horizon_8": "West-Südwest (240°-270°)",
+          "horizon_9": "West (270°-300°)",
+          "horizon_10": "West-Nordwest (300°-330°)",
+          "horizon_11": "Nord-Nordwest (330°-360°)"
+        }
+      },
+      "weather_model": {
+        "title": "Wettermodell Auswahl",
+        "description": "Wählen Sie das Wettermodell für die Vorhersage. Die Auflösung zeigt die räumliche Auflösung der Vorhersage.",
+        "data": {
+          "weather_model": "Wettermodell"
+        }
+      }
+    },
+    "error": {
+      "name_exists": "Dieser Name existiert bereits",
+      "cannot_delete_with_strings": "Wechselrichter kann nicht gelöscht werden solange Strings zugeordnet sind"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Konfiguration bearbeiten",
+        "menu_options": {
+          "edit_inverters": "Wechselrichter bearbeiten",
+          "edit_strings": "Strings bearbeiten",
+          "edit_weather_model": "Wettermodell bearbeiten",
+          "edit_horizon": "Horizont bearbeiten",
+          "done": "Fertig"
+        }
+      },
+      "edit_inverters": {
+        "title": "Wechselrichter bearbeiten",
+        "data": {
+          "action": "Aktion",
+          "inverter": "Wechselrichter auswählen"
+        },
+        "data_description": {
+          "action": "Wählen Sie die gewünschte Aktion"
+        }
+      },
+      "edit_strings": {
+        "title": "PV-Strings bearbeiten",
+        "data": {
+          "action": "Aktion",
+          "string": "String auswählen"
+        }
+      },
+      "edit_weather_model": {
+        "title": "Wettermodell",
+        "description": "Wählen Sie das Wettermodell für Ihren Standort. Modelle mit höherer Auflösung bieten genauere Vorhersagen, sind aber möglicherweise nicht in allen Regionen verfügbar.",
+        "data": {
+          "weather_model": "Wettermodell"
+        }
+      },
+      "edit_horizon": {
+        "title": "Horizont bearbeiten",
+        "description": "Horizonthöhe für jeden 30°-Abschnitt, beginnend bei Nord (0°) im Uhrzeigersinn",
+        "data": {
+          "horizon_0": "12 Uhr (0°-30°)",
+          "horizon_1": "1 Uhr (30°-60°)",
+          "horizon_2": "2 Uhr (60°-90°)",
+          "horizon_3": "3 Uhr (90°-120°)",
+          "horizon_4": "4 Uhr (120°-150°)",
+          "horizon_5": "5 Uhr (150°-180°)",
+          "horizon_6": "6 Uhr (180°-210°)",
+          "horizon_7": "7 Uhr (210°-240°)",
+          "horizon_8": "8 Uhr (240°-270°)",
+          "horizon_9": "9 Uhr (270°-300°)",
+          "horizon_10": "10 Uhr (300°-330°)",
+          "horizon_11": "11 Uhr (330°-360°)"
+        }
+      },
+      "edit_inverter": {
+        "title": "Wechselrichter {name} bearbeiten",
+        "description": "Ändern Sie die Wechselrichter-Einstellungen. Der Name kann nicht geändert werden.",
+        "data": {
+          "size_w": "Nominale DC-Leistung (W)",
+          "max_ac_w": "Maximale AC-Leistung (W)",
+          "inverter_eff": "Wechselrichter-Wirkungsgrad"
+        },
+        "data_description": {
+          "size_w": "Maximale DC-Eingangsleistung",
+          "max_ac_w": "Optionale AC-Ausgangsleistungsbegrenzung",
+          "inverter_eff": "Umwandlungswirkungsgrad (0,8-1,0)"
+        }
+      }
+    },
+    "error": {
+      "cannot_delete_with_strings": "Wechselrichter kann nicht gelöscht werden solange Strings zugeordnet sind"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "string_forecast": {
+        "name": "PV-String Vorhersage",
+        "state_attributes": {
+          "forecast": "48-Stunden Vorhersagedaten"
+        }
+      },
+      "inverter_forecast": {
+        "name": "Wechselrichter Vorhersage",
+        "state_attributes": {
+          "forecast": "48-Stunden Vorhersagedaten"
+        }
+      },
+      "string_remaining": {
+        "name": "Verbleibende String-Produktion"
+      },
+      "inverter_remaining": {
+        "name": "Verbleibende Wechselrichter-Produktion"
+      }
+    }
+  },
+  "selector": {
+    "weather_model": {
+      "options": {
+        "icon_d2_eps": "ICON-D2-EPS (DWD) - Mitteleuropa, 2 km - Aktualisierung alle 3h",
+        "icon_eu_eps": "ICON-EU-EPS (DWD) - Europa, 13 km - Aktualisierung alle 6h",
+        "icon_eps": "ICON-EPS (DWD) - Global, 26 km - Aktualisierung alle 12h",
+        "mogreps_uk": "MOGREPS-UK (UK Met Office) - UK, 2 km - Stündliche Aktualisierung",
+        "mogreps_g": "MOGREPS-G (UK Met Office) - Global, 20 km - Aktualisierung alle 6h"
+      }
+    },
+    "action": {
+      "options": {
+        "add": "Wechselrichter hinzufügen",
+        "edit": "Wechselrichter bearbeiten",
+        "remove": "Wechselrichter entfernen"
+      }
+    }
+  }
+}
