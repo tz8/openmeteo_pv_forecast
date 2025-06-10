@@ -1,6 +1,6 @@
 # Open-Meteo PV Forecast
 
-[English version below / Englische Version weiter unten]
+[English version below]
 
 ## 🇩🇪 Übersicht
 
